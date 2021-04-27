@@ -13,6 +13,7 @@ def process(line):
     return pairs
 
 lines = sc.textFile("/Users/xilaizhang/Desktop/past-classes/databaseExtras/project5/sample.txt", 4)
+lines.persist( pyspark.StorageLevel.MEMORY_AND_DISK_2 )
 words = lines.flatMap(lambda line: process(line))
 
 wordCounts = words.reduceByKey(lambda a, b: a+b)
